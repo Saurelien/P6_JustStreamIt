@@ -1,0 +1,135 @@
+/* Les titres */
+h2
+{
+  margin-top: 100px;
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  color: grey;
+}
+
+/* Les categories */
+
+
+.categorie
+{
+display: flex;
+justify-content: space-around;
+flex-direction: row;
+align-items: center;
+}
+
+
+
+
+.arrow-left:hover
+{
+transform: rotate(0deg) scale(1.1);
+opacity: 1;
+transition: all 0.3s ease;
+}
+
+.arrow-right
+{
+display: flex;
+justify-content: flex-end;
+align-items: center;
+}
+
+.arrow-right:hover
+{
+transform: rotate(0deg) scale(1.1);
+opacity: 1;
+}
+
+.carousel_best_movie
+{
+display: flex;
+justify-content: space-around;
+}
+
+.carousel
+{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+}
+
+.carousel li
+{
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+list-style-type: none;
+align-items: center;
+width: 100px;
+height: 100px;
+padding: 60px;
+padding-top: 60px;
+background-color: grey;
+margin: 2px;
+}
+
+/* Meilleur film */
+
+.section-video-player
+{
+margin: 2px;
+padding: 100px;
+padding-top: 100px;
+display: flex;
+justify-content: space-around;
+
+}
+
+.video-container
+{
+  width: 200px;
+  height: 200px;
+  padding: 150px;
+  padding-top: 60px;
+  background-color: grey;
+  margin: 2px;
+}
+
+#logo-best-movie
+{
+  display: flex;
+  width: 100px;
+  height: 100px;
+  padding: 100px;
+  padding-top: 60px;
+  background-color: grey;
+  margin: 2px;
+  background-color: grey;
+}
+
+.player-button
+{
+position: center;
+}
+
+/* HELPERS */
+.green
+{
+    background-color: rgba(0,128,0,0.61);
+    border: dashed rgba(0,0,0,0.37);
+}
+
+.red
+{
+    background-color: rgba(255,60,0,0.5);
+    border: dashed rgba(0,0,0,0.37);
+}
+
+.blue
+{
+    background-color: rgba(15, 65, 114, 0.79);
+    border: dashed rgba(0,0,0,0.37);
+}
+
+.yellow
+{
+    background-color: rgba(255, 218, 5, 0.53);
+    border: dashed rgba(0,0,0,0.37);
+}

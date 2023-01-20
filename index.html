@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustStreamIt</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/category.css">
+    <script type="text/javascript"
+            src="script/data_movie.js",
+            src="script/script.js">
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <! -- Header -->
+
+    <header class="main-header">
+      <div class="container">
+          <h1 class="logo">
+              <img src="#" width="150" height="100" alt="JustStreamIT">
+          </h1>
+          <nav class="main-nav">
+              <ul class="main-nav-list">
+                  <li>
+                      <p>Acceuil</p>
+                  </li>
+                  <li>
+                      <p>Categorie</p>
+                  </li>
+              </ul>
+          </nav>
+      </div>
+    </header>
+
+    <! -- Movies categories -->
+
+    <h2>Meilleur film</h2>
+    <section class="section-video-player">
+        <div class="video-container yellow">
+            <button class="player-button">Play_button</button>
+            <a href="#">Lien du film</a>
+        </div>
+        <div>
+            <img id="logo-best-movie" src="#" alt="image film">
+        </div>
+    </section>
+
+    <h2>Films les mieux notés</h2>
+    <br>
+    <section class="categorie green">
+            <button class="arrow-left" id="best-movie-left">&#10094;</button>
+                <ul class="carousel" id="best-movie">
+                    
+                </ul>
+            <button class="arrow-right" id="best-movie-right">&#10095;</button>
+    </section>
+
+    <h2>Categorie 1</h2>
+    <br>
+    <section class="categorie green">
+            <button class="arrow-left" id="cat-1-left">&#10094;</button>
+                <ul class="carousel" id="categorie-1">
+                    <li class="slide-cat-1"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-1"><img src="TEST/3.jpg" alt="#"></li>
+                    <li class="slide-cat-1"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-1"><img src="TEST/2.jpg" alt="#"></li>
+                </ul>
+            <button class="arrow-right" id="cat-1-right">&#10095;</button>
+    </section>
+
+    <h2>Categorie 2</h2>
+    <br>
+    <section class="categorie green">
+            <button class="arrow-left" id="cat-2-left">&#10094;</button>
+                <ul class="carousel" id="categorie-2">
+                    <li class="slide-cat-2"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-2"><img src="TEST/3.jpg" alt="#"></li>
+                    <li class="slide-cat-2"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-2"><img src="TEST/2.jpg" alt="#"></li>
+                </ul>
+            <button class="arrow-right" id="cat-2-right">&#10095;</button>
+    </section>
+
+    <h2>Categorie 3</h2>
+    <br>
+    <section class="categorie green">
+            <button class="arrow-left" id="cat-3-left">&#10094;</button>
+                <ul class="carousel" id="categorie-3">
+                    <li class="slide-cat-3"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-3"><img src="TEST/3.jpg" alt="#"></li>
+                    <li class="slide-cat-3"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-3"><img src="TEST/2.jpg" alt="#"></li>
+                </ul>
+            <button class="arrow-right" id="cat-3-right">&#10095;</button>
+    </section>
+
+    <h2>Categorie 4</h2>
+    <br>
+    <section class="categorie green">
+            <button class="arrow-left" id="cat-4-left">&#10094;</button>
+                <ul class="carousel" id="categorie-4">
+                    <li class="slide-cat-4"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-4"><img src="TEST/3.jpg" alt="#"></li>
+                    <li class="slide-cat-4"><img src="TEST/1.jpg" alt="#"></li>
+                    <li class="slide-cat-4"><img src="TEST/2.jpg" alt="#"></li>
+                </ul>
+            <button class="arrow-right" id="cat-4-right">&#10095;</button>
+    </section>
+    <script type="module">
+        let catContainer = document.querySelector("#best-movie")
+        let slide = document.querySelector("#slide")
+        let catContainer4 = document.querySelector("#categorie-4")
+        let catContainer3 = document.querySelector("#categorie-3")
+        let catContainer2 = document.querySelector("#categorie-2")
+        let catContainer1 = document.querySelector("#categorie-1")
+        let leftButton4 = document.querySelector("#cat-4-left")
+        let rightButton4 = document.querySelector("#cat-4-right")
+        let leftButton3 = document.querySelector("#cat-3-left")
+        let rightButton3 = document.querySelector("#cat-3-right")
+        let leftButton2 = document.querySelector("#cat-2-left")
+        let rightButton2 = document.querySelector("#cat-2-right")
+        let leftButton1 = document.querySelector("#cat-1-left")
+        let rightButton1 = document.querySelector("#cat-1-right")
+        let bestLeftButton = document.querySelector("#best-movie-left")
+        let bestRightButton = document.querySelector("#best-movie-right")
+
+        let idMin = 0
+        let idMax = 4
+        const slider = ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"]
+        let data = Data
+
+
+        async function getCategoriesMovies(countMovies, genre){
+            let number = countMovies
+            let resultsData = []
+            let url = "http://localhost:8000/api/v1/titles/?genre=" + genre
+            let authorize = true 
+            do{
+                let response = await fetch(url)
+                let data = await response.json()
+                console.log("\n Fiche complète des films de l'api: ", data)
+                url = data.next
+                for (let dataMovie of data.results){
+                    if(resultsData.length >= number){
+                        authorize = false
+                        break;
+                    }
+                    resultsData.push(dataMovie)
+                }
+            }while(authorize)
+            console.log(resultsData)
+            return resultsData
+        }
+
+        // test appel fonction async pour données brutes des catégories
+        async function getImdbScore(countMovie, maxImdbScore){
+            let number = countMovie
+            let url = "http://localhost:8000/api/v1/titles/?" + new URLSearchParams({imdb_score_min:maxImdbScore})
+            let bestResults = []
+            let authorize = true
+            do{
+                let response = await fetch(url)
+                let bestData = await response.json()
+                console.log("toto",bestData)
+                url = bestData.next
+                console.log(url)
+                console.log(bestResults.length)
+                console.log(bestData.next)
+                for (let bestMovie of bestData.results){
+                    bestResults.push(bestMovie)
+                    if(bestResults.length >= number){
+                        authorize = false
+                        break;
+                    }
+                    console.log("Best ResultData: ",bestResults.length, bestResults)
+                    console.log(number)
+                }
+            }while(authorize)
+            bestResults.sort(function(a,b){return a.imdb_score - b.imdb_score})
+            return bestResults
+        }
+        await getImdbScore(7, 9.4)
+
+        await getCategoriesMovies(7, "Action")
+        await getCategoriesMovies(7, "Animation")
+        await getCategoriesMovies(7, "Crime")
+
+        // récupération des score imdb par films
+
+        async function displayActionMovie(){
+            catContainer = ""
+            const actionMovies = await getCategoriesMovies(7, "Action")
+            for (let movie of actionMovies){
+                let elementLi = document.createElement("li")
+                let imageAnchor = document.createElement("img")
+                imageAnchor.src = movie.image_url
+                catContainer.appendChild(elementLi)
+                elementLi.appendChild(imageAnchor)
+                console.log(elementLi)
+            }
+        }
+        displayActionMovie()
+
+        async function displayAnimationMovie(){
+            catContainer = ""
+            let animation = await getCategoriesMovies(7, "Animation")
+            let elementLi = document.createElement("li")
+            let imageAnchor = document.createElement("img")
+            imageAnchor.src = image_url
+            catContainer.appendChild(elementLi)
+            elementLi.appendChild(imageAnchor)
+            console.log(elementLi)
+        }
+        displayAnimationMovie()
+
+        async function displayCrimeMovie(){
+            catContainer = ""
+            let crime = await getCategoriesMovies(7, "Crime")
+            let elementLi = document.createElement("li")
+            let imageAnchor = document.createElement("img")
+            imageAnchor.src = crime.image_url
+            catContainer.appendChild(elementLi)
+            elementLi.appendChild(imageAnchor)
+            console.log(elementLi)
+        }
+        displayCrimeMovie()
+
+
+        bestLeftButton.addEventListener("click", function(){
+            if(idMin < 1){
+                return
+                };
+            idMin -= 1
+            idMax -= 1
+            catContainer.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                displayActionMovie()
+            };
+        });
+
+        bestRightButton.addEventListener("click", function(){
+            if(idMax > 7){
+                return
+                }
+            idMin += 1
+            idMax += 1
+            for (let i = idMin; i < idMax; i++) {
+                displayActionMovie()
+            }
+        })
+
+        leftButton4.addEventListener("click", function(){
+            if(idMin < 1){
+                return
+                };
+            idMin -= 1
+            idMax -= 1
+            catContainer4.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                const image = document.createElement("img")
+                const img = data[i].url
+                const titleMovie = data[i].title
+                console.log(idMin, idMax)
+                console.log(data[i].title)
+                console.log(data[i].id)
+                image.innerHTML = img
+                element.innerHTML = titleMovie
+                catContainer.appendChild(element, image)
+            };
+        });
+
+        rightButton4.addEventListener("click", function(){
+            if(idMax > 7){
+                return
+                };
+            idMin += 1
+            idMax += 1
+            catContainer4.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                element.innerHTML = slider[i]
+                catContainer4.appendChild(element)
+                console.log(i)
+                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+            };
+        });
+
+        leftButton3.addEventListener("click", function(){
+            if(idMin < 1){
+                return
+                };
+            idMin -= 1
+            idMax -= 1
+            catContainer3.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                element.innerHTML = slider[i]
+                catContainer3.appendChild(element)
+                console.log(i)
+                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+            };
+        });
+
+        rightButton3.addEventListener("click", function(){
+            if(idMax > 7){
+                return
+                };
+            idMin += 1
+            idMax += 1
+            catContainer3.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                element.innerHTML = slider[i]
+                catContainer3.appendChild(element)
+                console.log(i)
+                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+            };
+        });
+
+        leftButton2.addEventListener("click", function(){
+            if(idMin < 1){
+                return
+                };
+            idMin -= 1
+            idMax -= 1
+            catContainer2.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                element.innerHTML = slider[i]
+                catContainer2.appendChild(element)
+                console.log(i)
+                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+            };
+        });
+
+        rightButton2.addEventListener("click", function(){
+            if(idMax > 7){
+                return
+                };
+            idMin += 1
+            idMax += 1
+            catContainer2.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                element.innerHTML = slider[i]
+                catContainer2.appendChild(element)
+                console.log(i)
+                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+            };
+        });
+
+        leftButton1.addEventListener("click", function(){
+            if(idMin < 1){
+                return
+                };
+            idMin -= 1
+            idMax -= 1
+            catContainer1.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                element.innerHTML = slider[i]
+                catContainer1.appendChild(element)
+                console.log(i)
+                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+            };
+        });
+
+        rightButton1.addEventListener("click", function(){
+            if(idMax > 7){
+                return
+                };
+            idMin += 1
+            idMax += 1
+            catContainer1.innerHTML = ""
+            for (let i = idMin; i < idMax; i++) {
+                const element = document.createElement("li")
+                element.innerHTML = slider[i]
+                catContainer1.appendChild(element)
+                console.log(i)
+                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+            };
+
+        });
+    </script>
+
+</body>
+</html>

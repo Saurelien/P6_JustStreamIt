@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+
+<h1>Slider</h1>
+<div id="slider">
+  <a href="#" class="control_next">>></a>
+  <a href="#" class="control_prev"><</a>
+  <ul>
+    <li>SLIDE 1</li>
+    <li style="background: #aaa;">SLIDE 2</li>
+    <li>SLIDE 3</li>
+    <li style="background: #aaa;">SLIDE 4</li>
+  </ul>
+</div>
+
+<div class="slider_option">
+  <input type="checkbox" id="checkbox">
+  <label for="checkbox">Autoplay Slider</label>
+</div>
+<script>
+
+</script>
+</html>
+
+async function getBestMovie(minImdbScore, countMovies, ){
+  let numberBest = countMovies
+  const bestMoviesArr = []
+  let url = "http://localhost:8000/api/v1/titles/" + new URLSearchParams(minImdbScore)
+  let authorize = true
+  do{
+      const response = await fetch (url(countMovies= 7, ))
+      const bestData = await response.json()
+      console.log("\n Best imdb score: ", bestData)
+      url = bestData.next
+      for (let bestMovie of bestData.results){
+          if(bestMoviesArr.length >= numberBest){
+              ImdbScore.sort(9.3,9.4)
+              authorize = false
+              break;
+          }
+          bestMoviesArr.push(bestMovie)
+      }
+  }while(authorize)
+  console.log(bestMoviesArr)
+  return bestMoviesArr
+}
+await  getBestMovie(7, 9.3)
+
+
+async function fetchImdburl(imdbScore, countMovies) {
+  const url = "http://localhost:8000/api/v1/titles/?" + new URLSearchParams(imdbScore)
+  return await getCategoriesMovies(countMovies, genre)
+}
+
+async function fetchImdbUrl(param1, countMovie){
+  const url = "http://localhost:8000/api/v1/titles/?" + new URLSearchParams(param1)
+  return await getCategoriesMovies(countMovie, genre)
+}
+
+async function getImdbScore(){
+  const bestMovies = await fetchImdbUrl({imdb_score:9.3, countMovie:7})
+  bestMovies.sort(function(a,b){b.imdb_score - a.imdb_score})
+  console.log(bestMovies)
+  return bestMovies[0]
+}
+
+await getImdbScore()
+
+
+async function getImdbScore(countMovie, maxImdbScore){
+  const number = countMovie
+  const url = "http://localhost:8000/api/v1/titles/?imdb_score" + maxImdbScore
+  const bestResults = []
+  let authorize = true
+  do{
+      const response = await fetch(url)
+      const bestData = response.json()
+      url = bestData.next
+      for (let bestMovie of data.results){
+          if(bestResults.length >= number && bestMovie.imdb_score >= maxImdbScore){
+              authorize = false
+              break
+          }
+          bestResults.push(bestMovie)
+          bestResults.sort(function(a,b){return a.imdb_score - b.imdb_score})
+      }
+  }while(authorize)
+  return bestResults[0]
+}
+await getImdbScore(7, 9)
+
+async function getImdbScore(countMovie, maxImdbScore){
+  let number = countMovie
+  let url = "http://localhost:8000/api/v1/titles/?imdb_score" + maxImdbScore
+  let bestResults = []
+  let authorize = true
+  do{
+      let response = await fetch(url)
+      let bestData = response.json()
+      url = bestData.next
+      for (let bestMovie of bestData.results){
+          if(bestResults.length >= number && bestMovie.imdb_score >= maxImdbScore){
+              authorize = false
+              break
+          }
+          bestResults.push(bestMovie)
+          bestResults.sort(function(a,b){return a.imdb_score - b.imdb_score})
+      }
+  }while(authorize)
+  return bestResults[0]
+}
+await getImdbScore(7, 9)
