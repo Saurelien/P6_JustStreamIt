@@ -63,10 +63,7 @@
     <section class="categorie green">
             <button class="arrow-left" id="cat-1-left">&#10094;</button>
                 <ul class="carousel" id="categorie-1">
-                    <li class="slide-cat-1"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-1"><img src="TEST/3.jpg" alt="#"></li>
-                    <li class="slide-cat-1"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-1"><img src="TEST/2.jpg" alt="#"></li>
+
                 </ul>
             <button class="arrow-right" id="cat-1-right">&#10095;</button>
     </section>
@@ -76,10 +73,7 @@
     <section class="categorie green">
             <button class="arrow-left" id="cat-2-left">&#10094;</button>
                 <ul class="carousel" id="categorie-2">
-                    <li class="slide-cat-2"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-2"><img src="TEST/3.jpg" alt="#"></li>
-                    <li class="slide-cat-2"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-2"><img src="TEST/2.jpg" alt="#"></li>
+
                 </ul>
             <button class="arrow-right" id="cat-2-right">&#10095;</button>
     </section>
@@ -89,35 +83,17 @@
     <section class="categorie green">
             <button class="arrow-left" id="cat-3-left">&#10094;</button>
                 <ul class="carousel" id="categorie-3">
-                    <li class="slide-cat-3"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-3"><img src="TEST/3.jpg" alt="#"></li>
-                    <li class="slide-cat-3"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-3"><img src="TEST/2.jpg" alt="#"></li>
+
                 </ul>
             <button class="arrow-right" id="cat-3-right">&#10095;</button>
     </section>
 
-    <h2>Categorie 4</h2>
-    <br>
-    <section class="categorie green">
-            <button class="arrow-left" id="cat-4-left">&#10094;</button>
-                <ul class="carousel" id="categorie-4">
-                    <li class="slide-cat-4"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-4"><img src="TEST/3.jpg" alt="#"></li>
-                    <li class="slide-cat-4"><img src="TEST/1.jpg" alt="#"></li>
-                    <li class="slide-cat-4"><img src="TEST/2.jpg" alt="#"></li>
-                </ul>
-            <button class="arrow-right" id="cat-4-right">&#10095;</button>
-    </section>
     <script type="module">
         let catContainer = document.querySelector("#best-movie")
         let slide = document.querySelector("#slide")
-        let catContainer4 = document.querySelector("#categorie-4")
         let catContainer3 = document.querySelector("#categorie-3")
         let catContainer2 = document.querySelector("#categorie-2")
         let catContainer1 = document.querySelector("#categorie-1")
-        let leftButton4 = document.querySelector("#cat-4-left")
-        let rightButton4 = document.querySelector("#cat-4-right")
         let leftButton3 = document.querySelector("#cat-3-left")
         let rightButton3 = document.querySelector("#cat-3-right")
         let leftButton2 = document.querySelector("#cat-2-left")
@@ -133,6 +109,7 @@
         let data = Data
 
 
+
         async function getCategoriesMovies(countMovies, genre){
             let number = countMovies
             let resultsData = []
@@ -141,7 +118,6 @@
             do{
                 let response = await fetch(url)
                 let data = await response.json()
-                console.log("\n Fiche complète des films de l'api: ", data)
                 url = data.next
                 for (let dataMovie of data.results){
                     if(resultsData.length >= number){
@@ -151,10 +127,9 @@
                     resultsData.push(dataMovie)
                 }
             }while(authorize)
-            console.log(resultsData)
             return resultsData
         }
-
+        
         // test appel fonction async pour données brutes des catégories
         async function getImdbScore(countMovie, maxImdbScore){
             let number = countMovie
@@ -164,224 +139,170 @@
             do{
                 let response = await fetch(url)
                 let bestData = await response.json()
-                console.log("toto",bestData)
                 url = bestData.next
-                console.log(url)
-                console.log(bestResults.length)
-                console.log(bestData.next)
                 for (let bestMovie of bestData.results){
                     bestResults.push(bestMovie)
                     if(bestResults.length >= number){
                         authorize = false
                         break;
                     }
-                    console.log("Best ResultData: ",bestResults.length, bestResults)
-                    console.log(number)
                 }
             }while(authorize)
             bestResults.sort(function(a,b){return a.imdb_score - b.imdb_score})
             return bestResults
         }
-        await getImdbScore(7, 9.4)
+        //await getImdbScore(4, 9.4)
 
-        await getCategoriesMovies(7, "Action")
-        await getCategoriesMovies(7, "Animation")
-        await getCategoriesMovies(7, "Crime")
+        //await getCategoriesMovies(4, "Action")
+        //await getCategoriesMovies(4, "Animation")
+        //await getCategoriesMovies(4, "Crime")
 
         // récupération des score imdb par films
-
-        async function displayActionMovie(){
-            catContainer = ""
-            const actionMovies = await getCategoriesMovies(7, "Action")
-            for (let movie of actionMovies){
+        
+        async function displayBestMovie(){
+            catContainer.innerHTML = ""
+            const bestMovies = await getImdbScore(4, 9.4)
+            for (let bestCat of bestMovies){
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
-                imageAnchor.src = movie.image_url
+                imageAnchor.src = bestCat.image_url
                 catContainer.appendChild(elementLi)
                 elementLi.appendChild(imageAnchor)
-                console.log(elementLi)
             }
         }
-        displayActionMovie()
+        await displayBestMovie()
+        
+
+        async function displayActionMovie(){
+            catContainer1.innerHTML = ""
+            const actionMovies = await getCategoriesMovies(4, "Action")
+            for (let actionCat of actionMovies){
+                let elementLi = document.createElement("li")
+                let imageAnchor = document.createElement("img")
+                imageAnchor.src = actionCat.image_url
+                catContainer1.appendChild(elementLi)
+                elementLi.appendChild(imageAnchor)
+            }
+        }
+        await displayActionMovie()
 
         async function displayAnimationMovie(){
-            catContainer = ""
-            let animation = await getCategoriesMovies(7, "Animation")
-            let elementLi = document.createElement("li")
-            let imageAnchor = document.createElement("img")
-            imageAnchor.src = image_url
-            catContainer.appendChild(elementLi)
-            elementLi.appendChild(imageAnchor)
-            console.log(elementLi)
+            const animationMovies = await getCategoriesMovies(4, "Animation")
+            catContainer2.innerHTML = ""
+            for (let animationCat of animationMovies){
+                let elementLi = document.createElement("li")
+                let imageAnchor = document.createElement("img")
+                imageAnchor.src = animationCat.image_url
+                catContainer2.appendChild(elementLi)
+                elementLi.appendChild(imageAnchor)
+            }
         }
-        displayAnimationMovie()
+        await displayAnimationMovie()
 
         async function displayCrimeMovie(){
-            catContainer = ""
-            let crime = await getCategoriesMovies(7, "Crime")
-            let elementLi = document.createElement("li")
-            let imageAnchor = document.createElement("img")
-            imageAnchor.src = crime.image_url
-            catContainer.appendChild(elementLi)
-            elementLi.appendChild(imageAnchor)
-            console.log(elementLi)
-        }
-        displayCrimeMovie()
-
-
-        bestLeftButton.addEventListener("click", function(){
-            if(idMin < 1){
-                return
-                };
-            idMin -= 1
-            idMax -= 1
-            catContainer.innerHTML = ""
-            for (let i = idMin; i < idMax; i++) {
-                displayActionMovie()
-            };
-        });
-
-        bestRightButton.addEventListener("click", function(){
-            if(idMax > 7){
-                return
-                }
-            idMin += 1
-            idMax += 1
-            for (let i = idMin; i < idMax; i++) {
-                displayActionMovie()
+            catContainer3.innerHTML = ""
+            const crimeMovies = await getCategoriesMovies(4, "Crime")
+            for (let crimeCat of crimeMovies){
+                let elementLi = document.createElement("li")
+                let imageAnchor = document.createElement("img")
+                imageAnchor.src = crimeCat.image_url
+                catContainer3.appendChild(elementLi)
+                elementLi.appendChild(imageAnchor)
             }
-        })
+        }
+        await displayCrimeMovie()
 
-        leftButton4.addEventListener("click", function(){
+        //Slider Categorie Meilleur Film
+        bestLeftButton.addEventListener("click", async function(){
             if(idMin < 1){
                 return
                 };
             idMin -= 1
             idMax -= 1
-            catContainer4.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                const image = document.createElement("img")
-                const img = data[i].url
-                const titleMovie = data[i].title
-                console.log(idMin, idMax)
-                console.log(data[i].title)
-                console.log(data[i].id)
-                image.innerHTML = img
-                element.innerHTML = titleMovie
-                catContainer.appendChild(element, image)
+                await displayBestMovie()
             };
         });
 
-        rightButton4.addEventListener("click", function(){
-            if(idMax > 7){
+        bestRightButton.addEventListener("click", async function(){
+            if(idMin < 1){
                 return
                 };
             idMin += 1
             idMax += 1
-            catContainer4.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                element.innerHTML = slider[i]
-                catContainer4.appendChild(element)
-                console.log(i)
-                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+                await displayBestMovie()
             };
         });
 
-        leftButton3.addEventListener("click", function(){
+        //Slider Categorie Crime
+        leftButton3.addEventListener("click", async function(){
             if(idMin < 1){
                 return
                 };
             idMin -= 1
             idMax -= 1
-            catContainer3.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                element.innerHTML = slider[i]
-                catContainer3.appendChild(element)
-                console.log(i)
-                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+                await displayCrimeMovie()
             };
         });
 
-        rightButton3.addEventListener("click", function(){
+        rightButton3.addEventListener("click", async function(){
             if(idMax > 7){
                 return
                 };
             idMin += 1
             idMax += 1
-            catContainer3.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                element.innerHTML = slider[i]
-                catContainer3.appendChild(element)
-                console.log(i)
-                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+                await displayCrimeMovie()
             };
         });
 
-        leftButton2.addEventListener("click", function(){
+        //Slider Categorie Animation
+        leftButton2.addEventListener("click", async function(){
             if(idMin < 1){
                 return
                 };
             idMin -= 1
             idMax -= 1
-            catContainer2.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                element.innerHTML = slider[i]
-                catContainer2.appendChild(element)
-                console.log(i)
-                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+                await displayAnimationMovie()
             };
         });
 
-        rightButton2.addEventListener("click", function(){
+
+        rightButton2.addEventListener("click", async function(){
             if(idMax > 7){
                 return
                 };
             idMin += 1
             idMax += 1
-            catContainer2.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                element.innerHTML = slider[i]
-                catContainer2.appendChild(element)
-                console.log(i)
-                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+                await displayAnimationMovie()
             };
         });
 
-        leftButton1.addEventListener("click", function(){
+        //Slider Categorie Action
+        leftButton1.addEventListener("click", async function(){
             if(idMin < 1){
                 return
                 };
             idMin -= 1
             idMax -= 1
-            catContainer1.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                element.innerHTML = slider[i]
-                catContainer1.appendChild(element)
-                console.log(i)
-                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+                await displayActionMovie()
             };
         });
 
-        rightButton1.addEventListener("click", function(){
+
+        rightButton1.addEventListener("click", async function(){
             if(idMax > 7){
                 return
                 };
             idMin += 1
             idMax += 1
-            catContainer1.innerHTML = ""
             for (let i = idMin; i < idMax; i++) {
-                const element = document.createElement("li")
-                element.innerHTML = slider[i]
-                catContainer1.appendChild(element)
-                console.log(i)
-                console.log("idMIn = " + idMin + " " + "idMax = " + idMax )
+                await displayActionMovie()
             };
 
         });
