@@ -1,0 +1,26 @@
+/* Affichage par defaut de la modal = false */
+.modal {
+    display: none;
+    position: center;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+}
+
+/* Contenu de la modal */
+
+.modal-content {
+    margin: 15% auto;
+    padding: 20px;
+}
+
+.close {
+    float: right;
+    content: "\00d7";
+}
+
+.close:hover,
+.close:focus {
+    text-decoration: underline overline #FF3028 inline overline black;
+    cursor: pointer;
+}
