@@ -5,156 +5,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JustStreamIt</title>
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/test-cate.css">
-    <script src=""></script>
-    <script src=""></script>
+    <style>/* The Modal (background) */
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        
+        /* Modal Content/Box */
+        .modal-content {
+          background-color: #fefefe;
+          margin: 15% auto; /* 15% from the top and centered */
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%; /* Could be more or less, depending on screen size */
+        }
+        
+        /* The Close Button */
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }</style>
 </head>
 <body>
 
-    <! -- Header -->
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
 
-    <header class="main-header">
-      <div class="container">
-          <h1 class="logo">
-              <img src="#" width="150" height="100" alt="JustStreamIT">
-          </h1>
-          <nav class="main-nav">
-              <ul class="main-nav-list">
-                  <li>
-                      <p>Acceuil</p>
-                  </li>
-                  <li>
-                      <p>Categorie</p>
-                  </li>
-              </ul>
-          </nav>
-      </div>
-    </header>
+    <!-- The Modal -->
+        <div id="myModal" class="modal">
 
-    <! -- Movies categories -->
-
-    <h2>Meilleur film</h2>
-    <section class="section-video-player">
-        <div class="video-container yellow">
-            <button class="player-button">Play_button</button>
-            <a href="#">Lien du film</a>
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
         </div>
-        <div>
-            <img id="logo-best-movie" src="#" alt="image film">
-        </div>
-    </section>
 
-    <h2>Films les mieux notés</h2>
-    <br>
-    <section class="categorie green">
-        <button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
-        <ul class="carousel">
-            <li class="elem">titre 1</li>
-            <li class="elem">titre 2</li>
-            <li class="elem">titre 3</li>
-            <li class="elem">titre 4</li>
-        </ul>
-        <button class="arrow-right" onclick="plusDivs(+1)">&#10095;</button>
-    </section>
-
-    <h2>Categorie 1</h2>
-    <br>
-    <section class="categorie green">
-        <button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
-        <ul class="carousel">
-            <li class="elem">titre 1</li>
-            <li class="elem">titre 2</li>
-            <li class="elem">titre 3</li>
-            <li class="elem">titre 4</li>
-        </ul>
-        <button class="arrow-right" onclick="plusDivs(+1)">&#10095;</button>
-    </section>
-
-    <h2>Categorie 2</h2>
-    <br>
-    <section class="categorie green">
-        <button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
-        <ul class="carousel">
-            <li class="elem">titre 1</li>
-            <li class="elem">titre 2</li>
-            <li class="elem">titre 3</li>
-            <li class="elem">titre 4</li>
-        </ul>
-        <button class="arrow-right" onclick="plusDivs(+1)">&#10095;</button>
-    </section>
-
-    <h2>Categorie 3</h2>
-    <br>
-    <section class="categorie green">
-        <button class="arrow-left" onclick="plusDivs(-1)">&#10094;</button>
-        <ul class="carousel">
-            <li class="elem">titre 1</li>
-            <li class="elem">titre 2</li>
-            <li class="elem">titre 3</li>
-            <li class="elem">titre 4</li>
-        </ul>
-        <button class="arrow-right" onclick="plusDivs(+1)">&#10095;</button>
-    </section>
-
-    <h2>Categorie 4</h2>
-    <br>
-    <section class="categorie green">
-        <button class="arrow-left" id="cat-4-left" onclick="plusDivs(-1)">&#10094;</button>
-        <ul class="carousel">
-            <li class="elem">titre 1</li>
-            <li class="elem">titre 2</li>
-            <li class="elem">titre 3</li>
-            <li class="elem">titre 4</li>
-        </ul>
-        <button class="arrow-right" id="cat-4-right" onclick="plusDivs(+1)">&#10095;</button>
-    </section>
+    </div>
     <script>
-        """const slides = document.getElementByClass("carousel")
-        slides.forEach((arrow-left, indx) => {
-            carousel.style.transform = `translateX(${indx * 100}%)`;
-            });"""
-        function arrow-left(){
-            document.getElementByClass("arrow-left").style.marginLeft="500px";
-        }
-            """const slides = document.getElementByClass("arrow-left")
-        slides.forEach((arrow-left, indx) => {
-            carousel.style = marginLeft("500px);
-        });"""
+        // Get the modal
+        var modal = document.getElementById("myModal");
 
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
 
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-
-        for (let i in movies.results){
-                    for (let genre in movies.nextPage){
-                        const actionMovies = movies.results[genre].title
-                        const actionGenre = movies.results[genre].genres
-                        const actionImage = movies.results[genre].image_url
-                        console.log(actionMovies + "\n" + actionGenre + "\n" + actionImage)
-                }
-            }
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
         }
 
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
 
-        async function getMovies(){
-            let url = "http://localhost:8000/api/v1/titles/"
-            const response = await fetch(url)
-            const movies = await response.json()
-            const nextUrl = movies.next
-            console.log(movies)
-            console.log(movies.results)
-            console.log(nextUrl)
-            for (let data in movies.results){
-                console.log(response.ok)
-                console.log(response.status)
-                const movieTitle = movies.results[data].title
-                const imageUrl = movies.results[data].image_url
-                const movieGenre = movies.results[data].genres
-                const popularity = movies.results[data].votes
-                console.log("titre: ", movieTitle, "\nUrl du film: ", imageUrl, "\nCategorie du film :", movieGenre)
-                console.log("Popularité: ", popularity)
-                url = nextUrl
-            }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
         }
     </script>
 

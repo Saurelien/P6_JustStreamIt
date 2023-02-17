@@ -7,12 +7,11 @@
     <title>JustStreamIt</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/category.css">
-    <link rel=""stylesheet href="css/modal.css">
+    <link rel="stylesheet" href="css/modal.css">
     <script type="text/javascript"
             src="script/data_movie.js",
             src="script/script.js">
     </script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 
@@ -36,12 +35,27 @@
       </div>
     </header>
 
-    <!-- La modal -->
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
     <div id="myModal" class="modal">
-        <!--Contenu de la modal-->
-        <div class=""modal-content>
-            <span class="closeModal"></span>
+
+        <!-- Modal content -->
+        <div class="modal-content" id="modal-content">
+            <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body" id="modalContent">
+            <p>Some text in the Modal Body</p>
+            <p>Some other text...</p>
+            </div>
+            <div class="modal-footer">
+            <h3>Modal Footer</h3>
+            </div>
         </div>
+
     </div>
 
     <! -- Movies categories -->
@@ -67,7 +81,7 @@
             <button class="arrow-right" id="best-movie-right">&#10095;</button>
     </section>
 
-    <h2>Categorie 1</h2>
+    <h2>Categorie Action</h2>
     <br>
     <section class="categorie green">
             <button class="arrow-left" id="cat-1-left">&#10094;</button>
@@ -77,7 +91,7 @@
             <button class="arrow-right" id="cat-1-right">&#10095;</button>
     </section>
 
-    <h2>Categorie 2</h2>
+    <h2>Categorie Animation</h2>
     <br>
     <section class="categorie green">
             <button class="arrow-left" id="cat-2-left">&#10094;</button>
@@ -87,7 +101,7 @@
             <button class="arrow-right" id="cat-2-right">&#10095;</button>
     </section>
 
-    <h2>Categorie 3</h2>
+    <h2>Categorie Crime</h2>
     <br>
     <section class="categorie green">
             <button class="arrow-left" id="cat-3-left">&#10094;</button>
@@ -99,7 +113,6 @@
 
     <script type="module">
         const catContainer = document.querySelector("#best-movie")
-        const slide = document.querySelector("#slide")
         const catContainer3 = document.querySelector("#categorie-3")
         const catContainer2 = document.querySelector("#categorie-2")
         const catContainer1 = document.querySelector("#categorie-1")
@@ -111,17 +124,7 @@
         const rightButton1 = document.querySelector("#cat-1-right")
         const bestLeftButton = document.querySelector("#best-movie-left")
         const bestRightButton = document.querySelector("#best-movie-right")
-        const modal = document.querySelector("#myModal")
-        const closeModal = document.getElementsByClassName("closeModal")
 
-        // Section Modal
-
-        modal.addEventListener("click", async function(){
-            model.style.display = "block"
-        });
-
-        let idMin = 0
-        let idMax = 4
         let bestMinId = 0
         let bestMaxId = 4
         let actionMinId = 0
@@ -131,22 +134,90 @@
         let crimeMinID = 0
         let crimeMaxID = 4
 
+        let bestMovies = await getImdbScore(7, "9.3")
+        let actionMovies = await getCategoriesMovies(7, "Action")
+        let animationMovies = await getCategoriesMovies(7, "Animation")
+        let crimeMovies = await getCategoriesMovies(7, "Crime")
+
+        const bestButton = document.getElementById("myBtn")
+        const modal = document.querySelector("#myModal")
+        const closeModal = document.querySelector(".close")
+        
+        async function detailMovies(id){
+            let detail = []
+            let url = "http://localhost:8000/api/v1/titles/" + id
+            console.log(url)
+            let response = await fetch(url)
+            let dataDetail = await response.json()
+            detail.push(dataDetail)
+            /*for(let data of dataDetail.restults){
+                console.log(data)
+                detail.push(data)
+            }*/
+            console.log(detail)
+            return detail
+        }
+        await detailMovies(1508669)
+        
+        bestButton.onclick = async function(){
+            let details = await detailMovies(1508669)
+            for(let info of details){
+                let elementLi = document.createElement("li")
+                let imageAnchor = document.createElement("img")
+                let elementLiActors = document.createElement("li")
+                let movieTitle = document.createElement("h1")
+                let movieWriter = document.createElement("h2")
+                let movieDirectors = document.createElement("h3")
+                let movieActors = document.createElement("h4")
+                imageAnchor.src = info.image_url
+                console.log(imageAnchor)
+                movieTitle.innerHTML = info.title
+                movieWriter.innerHTML = info.writer
+                movieDirectors.innerHTML = info.directors
+                movieActors.innerHTML = info.actors
+                console.log(movieActors)
+                console.log(imageAnchor.src)
+                modal.appendChild(elementLi)
+                elementLi.appendChild(imageAnchor)
+                elementLi.appendChild(elementLiActors)
+                elementLi.appendChild(movieTitle)
+                elementLiActors.appendChild(movieWriter)
+                elementLiActors.appendChild(movieDirectors)
+                elementLiActors.appendChild(movieActors)
+            }
+            modal.style.display = "block"
+        }
+        /*
+        bestButton.onclick = function(){
+            modal.style.display = "block"
+        }
+        */
+        closeModal.onclick = function(){
+            modal.style.display = "none";
+        }
+        window.onclick = function(close){
+            if(close.target == modal){
+                modal.style.display = "none"
+            }
+        }
+
         //fonction async pour données brutes des catégories
         async function getCategoriesMovies(countMovies, genre){
             let number = countMovies
             let resultsData = []
-            let url = "http://localhost:8000/api/v1/titles/?genre=" + genre
+            let url = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=" + genre 
             let authorize = true 
             do{
                 let response = await fetch(url)
                 let data = await response.json()
                 url = data.next
                 for (let dataMovie of data.results){
-                    resultsData.push(dataMovie)
+                    resultsData.imdb_score >= "9.3"
                     if(resultsData.length >= number){
                         authorize = false
                         break;
                     }
+                    resultsData.push(dataMovie)
                 }
             }while(authorize)
             return resultsData
@@ -155,7 +226,7 @@
         //fonction async pour données brutes des meilleurs films
         async function getImdbScore(countMovie, maxImdbScore){
             let number = countMovie
-            let url = "http://localhost:8000/api/v1/titles/?" + new URLSearchParams({imdb_score_min:maxImdbScore})
+            let url = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score"
             let bestResults = []
             let authorize = true
             do{
@@ -170,42 +241,17 @@
                     bestResults.push(bestMovie)
                 }
             }while(authorize)
-            bestResults.sort(function(a,b){return b.imdb_score - a.imdb_score})
             return bestResults
         }
 
-        async function modalMovie(container, display){
-            //trigger ouverture modal
-            const modalOpen = document.createElement("button")
-            modalOpen.setAttribute("id","myBtn")
-            console.log(modalOpen)
-            // Le block html modal
-            const modal = document.createElement("div")
-            modal.height = "100px"
-            modal.width = "100px"
-            modal.setAttribute("id","myModal","class","modal")
-            const modalContent = document.createElement("div")
-            modalContent.setAttribute("class","modal-content")
-            const closeModal = document.createElement("span")
-            const modalText = document.createElement("p")
-            modalText.innerText = "TOTO DID SOME TEXT TEST"
-            closeModal.setAttribute("class","close")
-            modalContent.appendChild(closeModal && modalText)
-            modal.appendChild(modalContent)
-            console.log(modal)
-            //container.addEventListener("click", async function(){
-                //const test = await display()
-                //for (let i of test){
-                    //const dataInfo = test[i].info du results...
-                //}
-            //})
-        }
-        await modalMovie()
 
         async function displayBestMovie(){
             const bestMovies = await getImdbScore(4, "9.3")
             console.log(bestMovies)
             for (let bestCat of bestMovies){
+                //const btn = document.createElement("button")
+                //btn.setAttribute("id", "bestBtn")
+                //console.log(btn)
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
                 imageAnchor.src = bestCat.image_url
@@ -217,6 +263,7 @@
 
         async function displayActionMovie(){
             const actionMovies = await getCategoriesMovies(4, "Action")
+            console.log(actionMovies)
             for (let actionCat of actionMovies){
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
@@ -252,17 +299,9 @@
         await displayCrimeMovie()
         
 
-        const bestMovies = await getImdbScore(7, "9.3")
-        const actionMovies = await getCategoriesMovies(7, "Action")
-        const animationMovies = await getCategoriesMovies(7, "Animation")
-        const crimeMovies = await getCategoriesMovies(7, "Crime")
-
-        
-        console.log(bestMovies)
-        console.log(actionMovies)
         //Slider Categorie Meilleur Film
         bestLeftButton.addEventListener("click", async function(){
-            console.log(bestMinId ,"\n", bestMaxId)
+            console.log("actionMinId :", bestMinId + "\n actionMaxID :", bestMaxId)
             if(bestMinId === 0 && bestMaxId === 4){
                 return
                 };
@@ -281,7 +320,7 @@
         });
 
         bestRightButton.addEventListener("click", async function(){
-            console.log(bestMinId ,"\n", bestMaxId)
+            console.log("actionMinId :", bestMinId + "\n actionMaxID :", bestMaxId)
             if(bestMinId === 3 && bestMaxId === 7){
                 return
                 };
@@ -300,7 +339,7 @@
 
         //Slider Categorie Action
         leftButton1.addEventListener("click", async function(){
-            console.log("actionMinId :", actionMinId, "\n actionMaxID :", actionMaxID)
+            console.log("actionMinId :", actionMinId + "\n actionMaxID :", actionMaxID)
             if(actionMinId === 0 && actionMaxID === 4){
                 return
                 };
@@ -319,8 +358,8 @@
 
 
         rightButton1.addEventListener("click", async function(){
-            console.log("actionMinId :", actionMinId, "\n actionMaxID :", actionMaxID)
-            if(actionMaxID === 7 && actionMinId === 3){
+            console.log("actionMinId :", actionMinId + "\n actionMaxID :"+ actionMaxID)
+            if(actionMinId === 3 && actionMaxID === 7){
                 return
                 };
             actionMinId += 1
@@ -337,15 +376,16 @@
 
         });
 
+
         //Slider Categorie Crime
         leftButton3.addEventListener("click", async function(){
-            idMin -= 1
-            idMax -= 1
-            if(idMin < 1){
+            if(animationMinId === 0 && animationMaxID === 4){
                 return
                 };
+            animationMinId -= 1
+            animationMaxID -= 1
             catContainer3.innerHTML = ""
-            for (let i = idMin; i < idMax; i++) {
+            for (let i = animationMinId; i < animationMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
                 imageAnchor.src = crimeMovies[i].image_url
@@ -355,13 +395,13 @@
         });
 
         rightButton3.addEventListener("click", async function(){
-            if(idMax > 7){
+            if(animationMinId === 3 && animationMaxID === 7){
                 return
                 };
-            idMin += 1
-            idMax += 1
+            animationMinId += 1
+            animationMaxID += 1
             catContainer3.innerHTML = ""
-            for (let i = idMin; i < idMax; i++) {
+            for (let i = animationMinId; i < animationMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
                 imageAnchor.src = crimeMovies[i].image_url
@@ -372,13 +412,13 @@
 
         //Slider Categorie Animation
         leftButton2.addEventListener("click", async function(){
-            if(idMin < 1){
+            if(crimeMinID === 0 && crimeMaxID === 4){
                 return
                 };
-            idMin -= 1
-            idMax -= 1
+            crimeMinID -= 1
+            crimeMaxID -= 1
             catContainer2.innerHTML = ""
-            for (let i = idMin; i < idMax; i++) {
+            for (let i = crimeMinID; i < crimeMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
                 imageAnchor.src = animationMovies[i].image_url
@@ -389,13 +429,13 @@
 
 
         rightButton2.addEventListener("click", async function(){
-            if(idMax > 7){
+            if(crimeMinID === 3 && crimeMaxID === 7){
                 return
                 };
-            idMin += 1
-            idMax += 1
+            crimeMinID += 1
+            crimeMaxID += 1
             catContainer2.innerHTML = ""
-            for (let i = idMin; i < idMax; i++) {
+            for (let i = crimeMinID; i < crimeMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
                 imageAnchor.src = animationMovies[i].image_url
