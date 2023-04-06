@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecbfff4c-46a9-4fa9-9cda-fcf3cfa969dd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/OCMovies-API-EN-FR/db.sqlite3.bkp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OCMovies-API-EN-FR" beforeDir="false" afterPath="$PROJECT_DIR$/OCMovies-API-EN-FR" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/category.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/category.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/header.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test1.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +34,7 @@
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/cstem/PycharmProjects/P6_OCR&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -93,5 +87,12 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/OCMovies-API-EN-FR" />
+      <path value="$PROJECT_DIR$/OCMovies-API-EN-FR/P6_Just_Stream_It" />
+      <path value="$PROJECT_DIR$/P6_JustStreamIt" />
+    </ignored-roots>
   </component>
 </project>
