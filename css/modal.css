@@ -1,102 +1,157 @@
 
-/*
+.modal {
+  padding: 0px -50px;
+  display: none; /* Hidden by default */
+  position: fixed;
+  border-radius: 50px;
+  padding-block: 10px;
+  width: 98%; /* 75% de large */
+  height: 70%; /* 75% de haut */
+  text-align: center;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9); /* Noire avec opacité max */
+  color: white;
+}
+.modal-content{
+  padding: 50px 50px;
+  text-align: left;
+  height: 70%;
+}
 
-#myModal {
-    position: center;
-    z-index: 1;
-    overflow: auto;
-    border-radius: 50px;
-    width: 150px;
-    height: 150px;
+.scoller,
+.image-container{
+  padding: 5px 5px;
+  width: 100%;
+  border-radius: 50px;
+  max-height: 380px;
+  text-align: center;
+  overflow: auto; /* Active le defilement si necessaire */
+  background-color: rgba(0,0,0,0.9); /* Noire avec opacité max */
+  color: white;
+}
+
+.modal-header {
+  border-radius: 50px;
+  width: 100%;
+  font-family: 'LG A100', sans-serif;
+  font-size: 50px;
+  text-align: center;
+  background-color: rgb(0,0,0);
+  color: white;
 }
 
 
-.modal-content {
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
+.genre-list{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
 }
 
-.close {
-    display: none;
-    float: right;
-    content: "\00d7";
+.image-film{
+  max-width: 400px;
+  border-image: 20%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: orange;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
+.actors-list{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.movie-year{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.movie-rate{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.movie-duration{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.movie-director{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.movie-country{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.movie-description{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.movie-income{
+  text-align: left;
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+
+
+/*Decorateur html du boutton fermer*/
+.close{
+  border: 5px solid orange;
+  padding: 2px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 30px;
+  max-width: 400px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Fermer la modal */
+.modal-content .close{
+  border-style: ridge 3px orange;
+  color: #aaa;
+  font-size: 30px;
+}
+  
 .close:hover,
 .close:focus {
-    text-decoration: underline overline #FF3028 inline overline black;
-    cursor: pointer;
+  color: rgb(250, 0, 0);
+  text-decoration: none;
+  cursor: pointer;
 }
-*/
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: center; /* Stay in place */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content/Box */
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-  }
-  
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 30px;
-    font-weight: bold,underline overline #FF3028 inline overline black;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  /* Modal Header */
-.modal-header {
-    padding: 2px 2px;
-    background-color: #5cb85c;
-    color: white;
-  }
-  
-  /* Modal Body */
-  .modal-body {padding: 2px 16px;}
-  
-  /* Modal Footer */
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-  }
-  
-  /* Modal Content */
-  .modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: animatetop;
-    animation-duration: 0.4s
-  }
-  
-  /* Add Animation */
-  @keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
+.scroller,
+.modal-content{
+  position: initial;
   }

@@ -5,10 +5,12 @@
       <change afterPath="$PROJECT_DIR$/OCMovies-API-EN-FR/db.sqlite3.bkp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OCMovies-API-EN-FR" beforeDir="false" afterPath="$PROJECT_DIR$/OCMovies-API-EN-FR" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/category.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/category.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/header.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/css/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/test-cate.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +39,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/cstem/PycharmProjects/P6_OCR&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>

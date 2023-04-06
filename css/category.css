@@ -1,14 +1,36 @@
 /* Les titres */
-h2
+
+.top-title{
+  margin-top: 100px;
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+  border: 5px solid orange;
+  color: rgb(189, 136, 39);
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
+}
+
+.title
 {
   margin-top: 100px;
   padding: 20px;
   font-size: 20px;
   text-align: center;
-  color: grey;
+  border: 5px solid orange;
+  color: rgb(189, 136, 39);
+  letter-spacing: 5px;
+  font-family: 'LG A100', sans-serif;
+  font-size: 20px;
 }
 
 /* Les categories */
+.btn,
+img{
+	width: 100%;
+	height: auto;
+}
 
 
 .categorie
@@ -20,7 +42,7 @@ align-items: center;
 }
 
 
-
+/* SLider */
 
 .arrow-left:hover
 {
@@ -66,7 +88,7 @@ width: 100px;
 height: 100px;
 padding: 60px;
 padding-top: 60px;
-background-color: grey;
+background-color: rgb(21, 46, 35);
 margin: 2px;
 }
 
