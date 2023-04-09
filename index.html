@@ -39,7 +39,7 @@
             <div class="modal-content" id="modal-content">
                 <div class="image-container">
                     <span class="scroller"></span>
-                    <img class="image-film" src="#" alt="movie-image-info">
+                    <img class="image-film" src="" alt="movie-image-info">
                     <p class="genre-list"></p>
                     <p class="actors-list"></p>
                     <p class="movie-year"></p>
@@ -79,7 +79,7 @@
         <button class="arrow-right" id="best-movie-right">&#10095;</button>
     </section>
 
-    <h1 class="title">Categorie Action</h1>
+    <h1 class="title">Biography</h1>
     <br>
     <section class="categorie">
         <button class="arrow-left" id="cat-1-left">&#10094;</button>
@@ -89,7 +89,7 @@
         <button class="arrow-right" id="cat-1-right">&#10095;</button>
     </section>
 
-    <h1 class="title">Categorie Aventure</h1>
+    <h1 class="title">Horror</h1>
     <br>
     <section class="categorie">
         <button class="arrow-left" id="cat-2-left">&#10094;</button>
@@ -99,7 +99,7 @@
         <button class="arrow-right" id="cat-2-right">&#10095;</button>
     </section>
 
-    <h1 class="title">Categorie Crime</h1>
+    <h1 class="title">Crime</h1>
     <br>
     <section class="categorie">
         <button class="arrow-left" id="cat-3-left">&#10094;</button>
@@ -125,17 +125,17 @@
 
         let bestMinId = 0
         let bestMaxId = 4
-        let actionMinId = 0
-        let actionMaxID = 4
-        let adventureMinId = 0
-        let adventureMaxID = 4
+        let biographyMinId = 0
+        let biographyMaxID = 4
+        let horrorMinId = 0
+        let horrorMaxID = 4
         let crimeMinID = 0
         let crimeMaxID = 4
 
         let bestMovies = await getBestMovies(7)
         let bestMovie = bestMovies[0]
-        let actionMovies = await getCategoriesMovies(7, "Action")
-        let adventureMovies = await getCategoriesMovies(7, "Adventure")
+        let biographyMovies = await getCategoriesMovies(7, "Biography")
+        let horrorMovies = await getCategoriesMovies(7, "Horror")
         let crimeMovies = await getCategoriesMovies(7, "Crime")
 
         let modal = document.querySelector("#myModal")
@@ -176,6 +176,9 @@
             movieDescription.innerHTML = "Synopsis: " + movie.description
             movieIncome.innerHTML = "Le résultat au Box Office: " + movie.worldwide_gross_income + "$"
             close.innerHTML = "Fermer la modal"
+            if(movie.image_url === 404){
+                imageContent.innerHTML = "Image non disponible"
+            }
             if(movie.worldwide_gross_income == null){
                 movieIncome.innerHTML = "Le résultat au Box Office: " + "Aucuns résultats disponible"
             }
@@ -244,11 +247,10 @@
             return bestResults
         }
 
-        async function displayTopMovie(id){
+        async function displayTopMovie(){
             const movies = await getBestMovies(1)
             const movie = movies[0]
             let detail_movie = await detailMovie(movie.id)
-            console.log(movie.id)
             let topContent = document.querySelector(".video-container")
             let playButton = document.querySelector(".play-movie")
             let topFilmImage = document.querySelector(".top-film")
@@ -257,7 +259,9 @@
             topFilmImage.src = movie.image_url
             movieTitle.innerHTML = movie.title
             movieDescription.innerHTML = detail_movie.description
-            console.log(movie.description)
+            playButton.onclick = async function() {
+                await displayModal(movie.id)
+            }
         }
         await displayTopMovie()
 
@@ -280,43 +284,43 @@
         }
         await displayBestMovies()
 
-        async function displayActionMovie(){
-            const movies = actionMovies.slice(0,4)
+        async function displayBiographyMovie(){
+            const movies = biographyMovies.slice(0,4)
             for (const movie of movies){
-                let actionButton = document.createElement("button")
-                actionButton.setAttribute("class", "action-btn")
-                actionButton.innerHTML = "Infos Film"
+                let biographyButton = document.createElement("button")
+                biographyButton.setAttribute("class", "action-btn")
+                biographyButton.innerHTML = "Infos Film"
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
                 imageAnchor.src = movie.image_url
                 catContainer1.appendChild(elementLi)
                 elementLi.appendChild(imageAnchor)
-                elementLi.appendChild(actionButton)
-                actionButton.onclick = async function(){
+                elementLi.appendChild(biographyButton)
+                biographyButton.onclick = async function(){
                     await displayModal(movie.id)
                 }
             }
         }
-        await displayActionMovie()
+        await displayBiographyMovie()
 
-        async function displayAdventureMovie(){
-            const movies = adventureMovies.slice(0,4)
+        async function displayHorrorMovie(){
+            const movies = horrorMovies.slice(0,4)
             for (const movie of movies){
-                let adventureButton = document.createElement("button")
-                adventureButton.setAttribute("class", "animation-btn")
-                adventureButton.innerHTML = "Infos Film"
+                let horrorButton = document.createElement("button")
+                horrorButton.setAttribute("class", "animation-btn")
+                horrorButton.innerHTML = "Infos Film"
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
                 imageAnchor.src = movie.image_url
                 catContainer2.appendChild(elementLi)
                 elementLi.appendChild(imageAnchor)
-                elementLi.appendChild(adventureButton)
-                adventureButton.onclick = async function(){
+                elementLi.appendChild(horrorButton)
+                horrorButton.onclick = async function(){
                     await displayModal(movie.id)
                 }
             }
         }
-        await displayAdventureMovie()
+        await displayHorrorMovie()
 
         async function displayCrimeMovie(){
             const movies = crimeMovies.slice(0,4)
@@ -340,7 +344,6 @@
 
         //Slider Categorie Meilleur Film
         bestLeftButton.addEventListener("click", async function(){
-            console.log("actionMinId :", bestMinId + "\n actionMaxID :", bestMaxId)
             if(bestMinId === 0 && bestMaxId === 4){
                 return
                 };
@@ -365,7 +368,6 @@
         });
 
         bestRightButton.addEventListener("click", async function(){
-            console.log("actionMinId :", bestMinId + "\n actionMaxID :", bestMaxId)
             if(bestMinId === 3 && bestMaxId === 7){
                 return
                 };
@@ -391,52 +393,48 @@
 
         //Slider Categorie Action
         leftButton1.addEventListener("click", async function(){
-            console.log("actionMinId :", actionMinId + "\n actionMaxID :", actionMaxID)
-            if(actionMinId === 0 && actionMaxID === 4){
+            if(biographyMinId === 0 && biographyMaxID === 4){
                 return
                 };
-            actionMinId -= 1
-            actionMaxID -= 1
+            biographyMinId -= 1
+            biographyMaxID -= 1
             catContainer1.innerHTML = ""
-            for (let i = actionMinId; i < actionMaxID; i++) {
-                console.log(i)
+            for (let i = biographyMinId; i < biographyMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
-                let actionButton = document.createElement("button")
-                actionButton.getAttribute("class")
-                actionButton.innerHTML = "Info Film"
-                imageAnchor.src = actionMovies[i].image_url
+                let biographyButton = document.createElement("button")
+                biographyButton.getAttribute("class")
+                biographyButton.innerHTML = "Info Film"
+                imageAnchor.src = biographyMovies[i].image_url
                 catContainer1.appendChild(elementLi)
                 elementLi.appendChild(imageAnchor)
-                elementLi.appendChild(actionButton)
-                actionButton.onclick = async function(){
-                    await displayModal(actionMovies[i].id)
+                elementLi.appendChild(biographyButton)
+                biographyButton.onclick = async function(){
+                    await displayModal(biographyMovies[i].id)
                 }
             };
         });
 
 
         rightButton1.addEventListener("click", async function(){
-            console.log("actionMinId :", actionMinId + "\n actionMaxID :"+ actionMaxID)
-            if(actionMinId === 3 && actionMaxID === 7){
+            if(biographyMinId === 3 && biographyMaxID === 7){
                 return
                 };
-            actionMinId += 1
-            actionMaxID += 1
+            biographyMinId += 1
+            biographyMaxID += 1
             catContainer1.innerHTML = ""
-            for (let i = actionMinId; i < actionMaxID; i++) {
-                console.log(i)
+            for (let i = biographyMinId; i < biographyMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
-                let actionButton = document.createElement("button")
-                actionButton.getAttribute("class")
-                actionButton.innerHTML = "Info Film"
-                imageAnchor.src = actionMovies[i].image_url
+                let biographyButton = document.createElement("button")
+                biographyButton.getAttribute("class")
+                biographyButton.innerHTML = "Info Film"
+                imageAnchor.src = biographyMovies[i].image_url
                 catContainer1.appendChild(elementLi)
                 elementLi.appendChild(imageAnchor)
-                elementLi.appendChild(actionButton)
-                actionButton.onclick = async function(){
-                    await displayModal(actionMovies[i].id)
+                elementLi.appendChild(biographyButton)
+                biographyButton.onclick = async function(){
+                    await displayModal(biographyMovies[i].id)
                 }
             };
 
@@ -444,49 +442,47 @@
 
         //Slider Categorie Aventure
         leftButton2.addEventListener("click", async function(){
-            if(adventureMinId === 0 && adventureMaxID === 4){
+            if(horrorMinId === 0 && horrorMaxID === 4){
                 return
                 };
-            adventureMinId -= 1
-            adventureMaxID -= 1
+            horrorMinId -= 1
+            horrorMaxID -= 1
             catContainer2.innerHTML = ""
-            for (let i = adventureMinId; i < adventureMaxID; i++) {
-                console.log(i)
+            for (let i = horrorMinId; i < horrorMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
-                let adventureButton = document.createElement("button")
-                adventureButton.getAttribute("class")
-                adventureButton.innerHTML = "Info Film"
-                imageAnchor.src = adventureMovies[i].image_url
+                let horrorButton = document.createElement("button")
+                horrorButton.getAttribute("class")
+                horrorButton.innerHTML = "Info Film"
+                imageAnchor.src = horrorMovies[i].image_url
                 catContainer2.appendChild(elementLi)
                 elementLi.appendChild(imageAnchor)
-                elementLi.appendChild(adventureButton)
-                adventureButton.onclick = async function(){
-                    await displayModal(adventureMovies[i].id)
+                elementLi.appendChild(horrorButton)
+                horrorButton.onclick = async function(){
+                    await displayModal(horrorMovies[i].id)
                 }
             };
         });
 
         rightButton2.addEventListener("click", async function(){
-            if(adventureMinId === 3 && adventureMaxID === 7){
+            if(horrorMinId === 3 && horrorMaxID === 7){
                 return
                 };
-            adventureMinId += 1
-            adventureMaxID += 1
+            horrorMinId += 1
+            horrorMaxID += 1
             catContainer2.innerHTML = ""
-            for (let i = adventureMinId; i < adventureMaxID; i++) {
-                console.log(i)
+            for (let i = horrorMinId; i < horrorMaxID; i++) {
                 let elementLi = document.createElement("li")
                 let imageAnchor = document.createElement("img")
-                let adventureButton = document.createElement("button")
-                adventureButton.getAttribute("class")
-                adventureButton.innerHTML = "Info Film"
-                imageAnchor.src = adventureMovies[i].image_url
+                let horrorButton = document.createElement("button")
+                horrorButton.getAttribute("class")
+                horrorButton.innerHTML = "Info Film"
+                imageAnchor.src = horrorMovies[i].image_url
                 catContainer2.appendChild(elementLi)
                 elementLi.appendChild(imageAnchor)
-                elementLi.appendChild(adventureButton)
-                adventureButton.onclick = async function(){
-                    await displayModal(adventureMovies[i].id)
+                elementLi.appendChild(horrorButton)
+                horrorButton.onclick = async function(){
+                    await displayModal(horrorMovies[i].id)
                 }
             };
         });
