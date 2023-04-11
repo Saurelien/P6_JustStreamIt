@@ -176,9 +176,6 @@
             movieDescription.innerHTML = "Synopsis: " + movie.description
             movieIncome.innerHTML = "Le résultat au Box Office: " + movie.worldwide_gross_income + "$"
             close.innerHTML = "Fermer la modal"
-            if(movie.image_url === 404){
-                imageContent.innerHTML = "Image non disponible"
-            }
             if(movie.worldwide_gross_income == null){
                 movieIncome.innerHTML = "Le résultat au Box Office: " + "Aucuns résultats disponible"
             }
@@ -189,11 +186,6 @@
             }
         }
         }
-
-        /*for(let info in buttons){
-            buttons[info].onclick = async function(event){
-            }
-        }*/
 
         closeModal.onclick = function(){
             modal.style.display = "none";
